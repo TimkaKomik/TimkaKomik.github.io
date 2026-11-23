@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Темирлан Айтказинов — стендап</title>
+<meta name="description" content="Темирлан Айтказинов — стендап-комик. Пошлый, но женат. Видео, выступления, галерея и контакты.">
+<meta property="og:title" content="Темирлан Айтказинов — стендап">
+<meta property="og:description" content="Мой мир. Мои правила. Мой юмор.">
+<meta property="og:image" content="fest.jpg">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505; --bg2:#0e0e10; --fg:#f4f1ea; --dim:#8a8790;
+  --red:#ff1f3d; --violet:#a32cff; --acid:#d4ff00;
+  --line:rgba(255,255,255,.12);
+  --display:'Unbounded',system-ui,sans-serif; --body:'Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg);overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+::selection{background:var(--red);color:#fff}
+
+/* зерно поверх всего */
+body::after{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+
+/* курсор */
+.cursor{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--red);pointer-events:none;z-index:200;
+  transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s,background .2s}
+.cursor.big{width:70px;height:70px;background:#fff}
+@media (hover:none){.cursor{display:none}}
+
+/* навигация */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px clamp(16px,4vw,48px);background:linear-gradient(var(--bg),rgba(5,5,5,.6) 70%,transparent);backdrop-filter:blur(6px)}
+.logo{font-family:var(--display);font-weight:900;font-size:20px;letter-spacing:-.02em}
+.logo span{color:var(--red)}
+.menu{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.menu a{font-weight:800;font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:99px;transition:.2s;white-space:nowrap}
+.menu a:hover{background:var(--red);border-color:var(--red);transform:rotate(-3deg)}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--fg);border-radius:99px;padding:8px 16px;font:800 14px var(--body)}
+.nav-ig{display:none}
+/* нижняя панель-«приложение» для телефона */
+.tabbar{display:none}
+@media (max-width:900px){
+  .menu{display:none}
+  nav{padding:12px 16px;background:linear-gradient(rgba(5,5,5,.85),transparent);backdrop-filter:none}
+  .nav-ig{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid var(--line)}
+  .nav-ig svg{width:16px;height:16px}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);gap:0;top:auto;position:fixed;z-index:60;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));
+    background:rgba(18,18,20,.82);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+    border:1px solid var(--line);border-radius:22px;padding:6px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:16px;font-size:10.5px;font-weight:800;color:var(--dim);transition:.25s}
+  .tabbar a span{font-size:20px;line-height:1;transition:transform .25s}
+  .tabbar a.on{background:var(--red);color:#fff}
+  .tabbar a.on span{transform:scale(1.15) rotate(-8deg)}
+  body{padding-bottom:84px;font-size:16px}
+}
+
+section{padding:clamp(80px,12vw,160px) clamp(16px,4vw,48px);position:relative}
+.wrap{max-width:1280px;margin:0 auto}
+.kicker{font-family:var(--display);font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:40px;height:2px;background:currentColor}
+h2{font-family:var(--display);font-weight:900;font-size:clamp(40px,8vw,120px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:40px}
+h2 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--fg)}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,64px);align-items:center;padding-top:120px;padding-bottom:120px;max-width:1376px;margin:0 auto}
+.hero>*{min-width:0}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(34px,6.6vw,118px);line-height:.85;letter-spacing:-.05em;text-transform:uppercase}
+.hero h1 .l{display:block}
+.hero h1 .l2{color:var(--red)}
+.hero h1 .l3{font-size:.42em;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.5px var(--fg);margin-top:.15em}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;inset:0;pointer-events:none}
+.glitch::before{color:var(--violet);animation:g1 3s infinite steps(1);clip-path:inset(0 0 60% 0)}
+.glitch::after{color:var(--acid);animation:g2 3s infinite steps(1);clip-path:inset(55% 0 0 0)}
+@keyframes g1{0%,88%,100%{transform:none;opacity:0}89%{transform:translate(-6px,-2px);opacity:1}92%{transform:translate(5px,1px);opacity:1}95%{opacity:0}}
+@keyframes g2{0%,90%,100%{transform:none;opacity:0}91%{transform:translate(6px,2px);opacity:1}94%{transform:translate(-4px,0);opacity:1}97%{opacity:0}}
+.tag{display:inline-block;margin-top:32px;background:var(--fg);color:var(--bg);font-family:var(--display);font-weight:900;font-size:clamp(16px,2vw,24px);padding:10px 18px;transform:rotate(-2deg);text-transform:uppercase}
+.tag b{color:var(--red)}
+.hero p.lead{margin-top:28px;max-width:520px;color:var(--dim);font-size:clamp(16px,1.5vw,20px)}
+.hero p.lead strong{color:var(--fg)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:16px;padding:16px 26px;border-radius:99px;border:2px solid var(--fg);transition:.2s;cursor:pointer;background:none;color:var(--fg);font-family:var(--body)}
+.btn.fill{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{transform:translateY(-3px) rotate(-2deg);box-shadow:6px 6px 0 var(--violet)}
+
+.reel{position:relative;justify-self:center;width:min(100%,340px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;border:2px solid var(--line);
+  box-shadow:0 0 0 8px var(--bg2),0 0 80px -10px var(--violet);transform:rotate(3deg);transition:transform .4s}
+.reel:hover{transform:rotate(0) scale(1.02)}
+.reel video{width:100%;height:100%;object-fit:cover}
+.reel .sound{position:absolute;bottom:14px;left:14px;right:14px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);color:#fff;border:1px solid var(--line);border-radius:99px;padding:12px;font:800 14px var(--body);cursor:pointer}
+.reel .live{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font:800 12px var(--body);padding:5px 10px;border-radius:99px;letter-spacing:.1em}
+.reel .live::before{content:"● ";animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.sticker{position:absolute;font-family:var(--display);font-weight:900;font-size:13px;text-transform:uppercase;padding:8px 12px;z-index:2;pointer-events:none}
+.s1{background:var(--acid);color:#000;top:18%;right:-14px;transform:rotate(12deg)}
+.s2{background:var(--violet);color:#fff;bottom:22%;left:-18px;transform:rotate(-10deg)}
+.reel-box{position:relative;justify-self:center}
+
+/* телефон: первый экран = видео на весь экран, как в TikTok */
+@media (max-width:900px){
+  .hero{display:block;position:relative;min-height:100svh;padding:0;max-width:none}
+  .reel-box{position:absolute;inset:0;z-index:0}
+  .reel{width:100%;height:100%;aspect-ratio:auto;border-radius:0;border:0;box-shadow:none;transform:none!important}
+  .reel::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(rgba(5,5,5,.55),transparent 22%,transparent 38%,rgba(5,5,5,.75) 62%,var(--bg) 96%)}
+  .reel .live{top:72px;left:16px;z-index:2}
+  .reel .sound{top:68px;bottom:auto;left:auto;right:16px;width:auto;padding:9px 14px;font-size:13px;z-index:2}
+  .s1{top:118px;right:12px;font-size:11px}
+  .s2{top:170px;left:12px;bottom:auto;font-size:11px}
+  .hero-text{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 16px calc(96px + env(safe-area-inset-bottom));pointer-events:none}
+  .hero-text a,.hero-text button{pointer-events:auto}
+  .hero h1{font-size:10.5vw;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+  .hero h1 .l3{-webkit-text-stroke:1px var(--fg)}
+  .tag{margin-top:18px;font-size:15px;align-self:flex-start}
+  .hero p.lead{display:none}
+  .cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  .cta .btn{justify-content:center;padding:15px 10px;font-size:14px}
+  .scroll-hint{display:block}
+}
+.scroll-hint{display:none;text-align:center;margin-top:16px;font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--dim);animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+/* бегущая строка */
+.marquee{overflow:hidden;border-block:2px solid var(--fg);background:var(--red);color:#fff;transform:rotate(-2deg);margin:0 -20px;position:relative;z-index:3}
+.marquee.alt{background:var(--violet);transform:rotate(1.5deg);margin-top:-14px;z-index:2}
+.track{display:flex;width:max-content;animation:run 25s linear infinite}
+.marquee.alt .track{animation-direction:reverse}
+.track span{font-family:var(--display);font-weight:900;font-size:clamp(20px,3vw,36px);text-transform:uppercase;padding:14px 0;white-space:nowrap}
+.track span::after{content:"✦";margin:0 28px;color:var(--acid)}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* КТО Я */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:start}
+.manifest h3{font-family:var(--display);font-weight:900;font-size:clamp(28px,4vw,52px);line-height:1;text-transform:uppercase;letter-spacing:-.03em;margin-bottom:28px}
+.manifest h3 span{color:var(--red)}
+.manifest p{font-size:clamp(17px,1.6vw,21px);margin-bottom:18px;color:#d8d4cc}
+.manifest .rules{margin-top:32px;font-family:var(--display);font-weight:900;font-size:clamp(18px,2.2vw,28px);text-transform:uppercase;line-height:1.15}
+.manifest .rules span{display:block}
+.manifest .rules span:nth-child(2){color:var(--violet)}
+.manifest .rules span:nth-child(3){color:var(--red)}
+.manifest .warn{margin-top:28px;display:inline-block;border:2px dashed var(--acid);color:var(--acid);padding:12px 18px;font-weight:800;transform:rotate(-1deg)}
+.photo-stack{position:relative}
+.photo-stack img{border-radius:18px;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:45% 30%;filter:grayscale(1) contrast(1.15);transition:filter .5s}
+.photo-stack:hover img{filter:none}
+.photo-stack .caption{position:absolute;bottom:-18px;right:-10px;background:var(--red);font-family:var(--display);font-weight:900;padding:10px 16px;transform:rotate(-4deg);text-transform:uppercase;font-size:14px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:64px}
+.fact{border:1px solid var(--line);border-radius:20px;padding:24px;background:var(--bg2);transition:.3s;position:relative;overflow:hidden}
+.fact:hover{border-color:var(--red);transform:translateY(-6px) rotate(-1deg)}
+.fact b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.04em}
+.fact:nth-child(1) b{color:var(--red)}.fact:nth-child(2) b{color:var(--violet)}.fact:nth-child(3) b{color:var(--acid)}
+.fact span{color:var(--dim);font-weight:600}
+@media (max-width:900px){
+  .about{grid-template-columns:1fr}
+  .photo-stack{order:-1;margin-bottom:12px}
+  .photo-stack img{filter:none;aspect-ratio:1/1}
+  .photo-stack .caption{right:8px;font-size:12px}
+  .facts{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:48px -16px 0;padding:6px 16px 10px;scrollbar-width:none}
+  .facts::-webkit-scrollbar{display:none}
+  .fact{flex:0 0 68%;scroll-snap-align:start}
+}
+@media (max-width:900px){
+  section{padding:72px 16px}
+  h2{font-size:clamp(36px,11vw,64px);margin-bottom:28px}
+  h2 em{-webkit-text-stroke:1.5px var(--fg)}
+  .kicker{font-size:11px;margin-bottom:14px}
+  .manifest h3{font-size:30px}
+  .marquee .track span{font-size:20px;padding:10px 0}
+  .track span::after{margin:0 18px}
+}
+
+/* ВЫСТУПЛЕНИЯ */
+.shows{background:var(--bg2);border-radius:40px 40px 0 0}
+.yt{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#000;cursor:pointer;border:2px solid var(--line)}
+.yt img{width:100%;height:100%;object-fit:cover;transition:transform .6s,opacity .3s;opacity:.85}
+.yt:hover img{transform:scale(1.04);opacity:1}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.play{position:absolute;inset:0;display:grid;place-items:center}
+.play i{width:clamp(80px,10vw,120px);aspect-ratio:1;border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,31,61,.6);animation:pulse 2s infinite}
+.play i::after{content:"";border-left:28px solid #fff;border-top:17px solid transparent;border-bottom:17px solid transparent;margin-left:8px}
+@keyframes pulse{70%{box-shadow:0 0 0 30px rgba(255,31,61,0)}100%{box-shadow:0 0 0 0 rgba(255,31,61,0)}}
+.yt .label{position:absolute;top:18px;left:18px;background:var(--acid);color:#000;font:900 13px var(--display);padding:8px 12px;text-transform:uppercase}
+.show-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px}
+.card{border-radius:24px;overflow:hidden;position:relative;border:2px solid var(--line);min-height:280px}
+.card img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .6s}
+.card:hover img{transform:scale(1.05)}
+.card .over{position:absolute;inset:auto 0 0 0;padding:24px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.card .over b{font-family:var(--display);font-weight:900;font-size:clamp(20px,2.4vw,30px);text-transform:uppercase;display:block;line-height:1.05}
+.card .over span{color:var(--dim);font-weight:600}
+.card.cta-card{background:var(--red);display:flex;flex-direction:column;justify-content:space-between;padding:28px;transition:.3s}
+.card.cta-card:hover{background:var(--violet);transform:rotate(-1deg)}
+.card.cta-card b{font-family:var(--display);font-weight:900;font-size:clamp(28px,3.4vw,44px);line-height:.95;text-transform:uppercase}
+.card.cta-card .arrow{font-size:60px;line-height:1;align-self:flex-end;transition:transform .3s}
+.card.cta-card:hover .arrow{transform:translate(8px,-8px) rotate(-45deg)}
+@media (max-width:900px){
+  .shows{border-radius:28px 28px 0 0}
+  .yt{border-radius:18px}
+  .yt .label{top:10px;left:10px;font-size:10px;padding:6px 9px}
+  .play i{width:68px}
+  .play i::after{border-left-width:20px;border-top-width:12px;border-bottom-width:12px;margin-left:6px}
+  .show-grid{grid-template-columns:1fr}
+  .card{min-height:240px;border-radius:18px}
+  .card.cta-card{min-height:0;flex-direction:row;align-items:center;padding:22px}
+  .card.cta-card b{font-size:22px}
+  .card.cta-card .arrow{font-size:40px;align-self:center}
+}
+
+/* ЮМОР */
+.humor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:2px solid var(--line);border-radius:24px;padding:clamp(24px,3vw,40px);background:var(--bg2)}
+.panel h3{font-family:var(--display);font-weight:900;font-size:clamp(22px,2.6vw,32px);text-transform:uppercase;margin-bottom:8px;line-height:1.05}
+.panel .sub{color:var(--dim);margin-bottom:28px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;border-radius:99px;background:linear-gradient(90deg,var(--acid),var(--violet),var(--red));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:40px;height:40px;border-radius:50%;background:#fff;border:4px solid var(--bg);box-shadow:0 0 0 3px var(--red);cursor:grab}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:#fff;border:4px solid var(--bg);box-shadow:0 0 0 3px var(--red);cursor:grab}
+.meter-val{font-family:var(--display);font-weight:900;font-size:clamp(56px,8vw,100px);line-height:1;margin:24px 0 8px;letter-spacing:-.05em}
+.meter-txt{font-weight:800;font-size:20px;min-height:60px}
+.dont{width:100%;aspect-ratio:2/1;border-radius:20px;border:0;background:var(--red);color:#fff;font:900 clamp(22px,3vw,36px)/1 var(--display);text-transform:uppercase;cursor:pointer;
+  box-shadow:0 10px 0 #8c0016;transition:transform .1s,box-shadow .1s;padding:20px}
+.dont:active{transform:translateY(8px);box-shadow:0 2px 0 #8c0016}
+.dont-out{margin-top:24px;font-weight:800;font-size:20px;min-height:64px}
+.serious{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.serious h3{margin:0}
+
+/* «серьёзный режим» */
+body.boring{background:#fff!important;color:#000!important;font-family:'Times New Roman',serif!important}
+body.boring *{font-family:'Times New Roman',serif!important;color:#000!important;background:#fff!important;border-color:#000!important;box-shadow:none!important;-webkit-text-stroke:0!important;animation:none!important;transform:none!important;border-radius:0!important}
+body.boring img,body.boring video,body.boring .glitch::before,body.boring .glitch::after{filter:grayscale(1)!important}
+.boring-msg{position:fixed;inset:0;display:none;place-items:center;z-index:300;pointer-events:none}
+.boring-msg div{font:900 clamp(32px,6vw,80px)/1 var(--display);background:var(--red);color:#fff;padding:24px 32px;transform:rotate(-4deg);text-transform:uppercase;text-align:center}
+.boring-msg.show{display:grid;animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.3)}}
+
+@media (max-width:900px){
+  .humor-grid{grid-template-columns:1fr;gap:12px}
+  .panel{border-radius:20px;padding:22px}
+  .panel .sub{margin-bottom:20px;font-size:15px}
+  .meter-val{font-size:64px;margin-top:18px}
+  .meter-txt{font-size:17px}
+  .dont{aspect-ratio:auto;padding:30px 16px;font-size:24px}
+  .dont-out{font-size:17px;margin-top:20px}
+  .serious{flex-direction:column;align-items:stretch;gap:18px}
+  .serious .btn{justify-content:center}
+}
+
+/* ГАЛЕРЕЯ */
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(120px,14vw,200px);gap:12px}
+.g{border-radius:20px;overflow:hidden;cursor:zoom-in;position:relative;border:2px solid var(--line);background:#000}
+.g img,.g video{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s;filter:saturate(.9)}
+.g:hover img,.g:hover video{transform:scale(1.06);filter:saturate(1.2)}
+.g:nth-child(1){grid-column:span 7;grid-row:span 3}
+.g:nth-child(2){grid-column:span 5;grid-row:span 3}
+.g:nth-child(3){grid-column:span 8;grid-row:span 2}
+.g:nth-child(4){grid-column:span 4;grid-row:span 2}
+.g .gl{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.7);padding:6px 12px;border-radius:99px;font-weight:800;font-size:13px}
+.swipe-hint{display:none}
+/* телефон: галерея листается свайпом, как сторис */
+@media (max-width:900px){
+  .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -16px;padding:4px 16px 8px;scrollbar-width:none}
+  .gallery::-webkit-scrollbar{display:none}
+  .g:nth-child(n){flex:0 0 80%;height:min(68svh,520px);scroll-snap-align:center;border-radius:18px}
+  .g:nth-child(3) img{object-position:40% 50%}
+  .swipe-hint{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--dim);font-weight:800;font-size:13px}
+  .dots{display:flex;gap:6px}
+  .dots i{width:8px;height:8px;border-radius:99px;background:var(--line);transition:.3s}
+  .dots i.on{width:24px;background:var(--red)}
+}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:150;display:none;place-items:center;padding:16px;cursor:zoom-out}
+.lightbox.open{display:grid}
+.lightbox img,.lightbox video{max-height:90vh;max-width:min(1400px,100%);border-radius:12px}
+.lightbox .x{position:absolute;top:16px;right:16px;font:900 28px var(--display);background:var(--red);color:#fff;border:0;width:52px;height:52px;border-radius:50%;cursor:pointer}
+
+/* КОНТАКТЫ */
+.contact{text-align:center;overflow:hidden}
+.contact h2{font-size:clamp(44px,10vw,160px)}
+.contact .sub{color:var(--dim);font-size:clamp(17px,1.8vw,22px);max-width:640px;margin:0 auto 56px}
+.socials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1100px;margin:0 auto}
+.soc{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:40px;padding:28px;border-radius:24px;border:2px solid var(--line);text-align:left;transition:.25s;min-height:220px;background:var(--bg2)}
+.soc svg{width:44px;height:44px}
+.soc b{font-family:var(--display);font-weight:900;font-size:clamp(22px,2.4vw,30px);text-transform:uppercase;display:block}
+.soc span{color:var(--dim);font-weight:600;word-break:break-all}
+.soc.ig:hover{background:linear-gradient(135deg,#7b2cff,#ff1f6d,#ffb800);border-color:transparent;transform:rotate(-2deg)}
+.soc.tt:hover{background:#000;border-color:#25f4ee;box-shadow:6px 6px 0 #fe2c55;transform:rotate(2deg)}
+.soc.yt2:hover{background:#ff0000;border-color:#ff0000;transform:rotate(-1deg)}
+.soc:hover span{color:#fff}
+@media (max-width:900px){
+  .contact .sub{margin-bottom:32px;font-size:16px}
+  .socials{grid-template-columns:1fr;gap:10px}
+  .soc{min-height:auto;flex-direction:row;align-items:center;gap:16px;padding:18px 20px;border-radius:20px}
+  .soc::after{content:"↗";margin-left:auto;font-size:26px;font-weight:800;color:var(--dim)}
+  .soc svg{width:34px;height:34px;flex:none}
+  .soc b{font-size:20px}
+  .soc span{font-size:14px}
+  .soc.ig{background:linear-gradient(135deg,rgba(123,44,255,.25),rgba(255,31,109,.2),rgba(255,184,0,.15))}
+  .big-mail{margin-top:36px;font-size:15px}
+  footer{flex-direction:column;text-align:center;align-items:center}
+}
+@media (hover:none){.soc:active{transform:scale(.97)}.btn:active{transform:scale(.96)}}
+.big-mail{margin-top:56px;font-weight:800;color:var(--dim)}
+.big-mail b{color:var(--acid)}
+
+footer{border-top:1px solid var(--line);padding:28px clamp(16px,4vw,48px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--dim);font-size:14px}
+
+/* появление при скролле */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="#top" class="logo">ТЕМИРЛАН<span>.</span></a>
+  <button class="burger" id="burger" aria-label="Меню">Меню ☰</button>
+  <a class="nav-ig" href="https://www.instagram.com/temirlan_aitkazinov/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>Подписаться</a>
+  <div class="menu" id="menu">
+    <a href="#about">😂 Кто я?</a>
+    <a href="#shows">🎤 Мои выступления</a>
+    <a href="#humor">🔥 Мой юмор</a>
+    <a href="#gallery">📸 Галерея</a>
+    <a href="#contact">📩 Связаться</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-text">
+    <h1>
+      <span class="l glitch" data-t="ТЕМИРЛАН">ТЕМИРЛАН</span>
+      <span class="l l2 glitch" data-t="АЙТКАЗИНОВ">АЙТКАЗИНОВ</span>
+      <span class="l l3">стендап-комик</span>
+    </h1>
+    <div class="tag">Пошлый, <b>но женат</b></div>
+    <p class="lead"><strong>Добро пожаловать в мой мир.</strong> Здесь юмор не знает границ, сарказм не имеет выходных, а скука официально запрещена.</p>
+    <div class="cta">
+      <a href="#shows" class="btn fill">🎤 Смотреть выступления</a>
+      <a href="#contact" class="btn">📩 Позвать на концерт</a>
+    </div>
+    <div class="scroll-hint">ЛИСТАЙ ↓</div>
+  </div>
+  <div class="reel-box">
+    <div class="sticker s1">18+ немного</div>
+    <div class="sticker s2">не для мамы</div>
+    <div class="reel">
+      <video id="reel" src="reel.mp4" poster="reel.jpg" autoplay muted loop playsinline preload="metadata"></video>
+      <div class="live">LIVE</div>
+      <button class="sound" id="sound">🔇 Включить звук</button>
+    </div>
+  </div>
+</header>
+
+<div class="marquee"><div class="track" id="m1"></div></div>
+<div class="marquee alt"><div class="track" id="m2"></div></div>
+
+<!-- КТО Я -->
+<section id="about">
+  <div class="wrap">
+    <div class="kicker">Кто я?</div>
+    <div class="about">
+      <div class="manifest rv">
+        <h3>Добро пожаловать <span>в мой мир.</span></h3>
+        <p>Я не пытаюсь быть идеальным. Я предпочитаю быть настоящим, смешным, иногда безумным и всегда собой.</p>
+        <p>Здесь будет всё: юмор, неожиданные мысли, провокации, творчество и немного хаоса.</p>
+        <p>Не воспринимай всё слишком серьёзно. Особенно меня.</p>
+        <div class="rules"><span>Мой мир.</span><span>Мои правила.</span><span>Мой юмор.</span></div>
+        <div class="warn">⚠ Заходи. Только не говори, что тебя не предупреждали.</div>
+      </div>
+      <div class="photo-stack rv">
+        <img src="bar.jpg" alt="Темирлан Айтказинов в баре, руки скрещены" loading="lazy">
+        <div class="caption">Да, это я. Нет, не охранник.</div>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact rv"><b id="age">26</b><span><span id="ageWord">лет</span> — уже не мальчик, ещё не дед</span></div>
+      <div class="fact rv"><b>18+</b><span>пошлый, но женат. Жена в курсе.</span></div>
+      <div class="fact rv"><b>∞</b><span>сарказма. Выходных у него нет.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ВЫСТУПЛЕНИЯ -->
+<section id="shows" class="shows">
+  <div class="wrap">
+    <div class="kicker">Мои выступления</div>
+    <h2>Свежий<br><em>монолог</em></h2>
+    <div class="yt rv" id="yt" data-id="D7bW1apaik4" role="button" tabindex="0" aria-label="Смотреть видео на YouTube">
+      <img src="https://i.ytimg.com/vi/D7bW1apaik4/maxresdefault.jpg" alt="Превью свежего выступления" loading="lazy"
+           onerror="this.src='https://i.ytimg.com/vi/D7bW1apaik4/hqdefault.jpg'">
+      <div class="label">▶ Новое на YouTube</div>
+      <div class="play"><i></i></div>
+    </div>
+    <div class="show-grid">
+      <div class="card rv">
+        <img src="fest.jpg" alt="Темирлан на сцене Astana Comedy Fest" loading="lazy" style="object-position:30% 30%">
+        <div class="over"><b>Astana Comedy Fest</b><span>Сцена, микрофон и немного хаоса</span></div>
+      </div>
+      <a class="card cta-card rv" href="https://youtube.com/@temirlanaitkazinov" target="_blank" rel="noopener">
+        <b>Все видео на YouTube</b>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ЮМОР -->
+<section id="humor">
+  <div class="wrap">
+    <div class="kicker">Мой юмор</div>
+    <h2>Осторожно,<br><em>интерактив</em></h2>
+    <div class="humor-grid">
+      <div class="panel rv">
+        <h3>Шкала пошлости</h3>
+        <p class="sub">Выбери, насколько ты готов(а). Мы не несём ответственности.</p>
+        <input type="range" id="meter" min="0" max="100" value="18" aria-label="Шкала пошлости">
+        <div class="meter-val" id="mval">18%</div>
+        <div class="meter-txt" id="mtxt"></div>
+      </div>
+      <div class="panel rv">
+        <h3>Не нажимай</h3>
+        <p class="sub">Серьёзно. Это просто кнопка. Не надо.</p>
+        <button class="dont" id="dont">НЕ НАЖИМАТЬ</button>
+        <div class="dont-out" id="dout"></div>
+      </div>
+      <div class="panel serious rv">
+        <div>
+          <h3>Серьёзный режим</h3>
+          <p class="sub" style="margin:8px 0 0">Для тех, кто пришёл сюда за скучным сайтом.</p>
+        </div>
+        <button class="btn fill" id="boring">🧐 Включить серьёзность</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="m3"></div></div>
+
+<!-- ГАЛЕРЕЯ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="kicker">Галерея</div>
+    <h2>Улики<br><em>с места</em></h2>
+    <div class="gallery">
+      <div class="g rv"><img src="fest.jpg" alt="Astana Comedy Fest" loading="lazy" style="object-position:25% 40%"><span class="gl">Astana Comedy Fest</span></div>
+      <div class="g rv" data-video="reel.mp4"><img src="reel.jpg" alt="Кадр из видео выступления" loading="lazy"><span class="gl">▶ Видео</span></div>
+      <div class="g rv"><img src="milf.jpg" alt="Стендап-монолог «Женат на милфе»" loading="lazy"><span class="gl">«Женат на милфе»</span></div>
+      <div class="g rv"><img src="bar.jpg" alt="Темирлан в баре" loading="lazy" style="object-position:45% 30%"><span class="gl">Охрана</span></div>
+    </div>
+    <div class="swipe-hint"><span>← листай →</span><div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="kicker" style="justify-content:center">Связаться со мной</div>
+    <h2 class="rv">Пиши.<br><em>Не стесняйся.</em></h2>
+    <p class="sub rv">Концерты, корпоративы, коллаборации или просто сказать, что я смешной: пиши в директ.</p>
+    <div class="socials">
+      <a class="soc ig rv" href="https://www.instagram.com/temirlan_aitkazinov/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        <div><b>Instagram</b><span>@temirlan_aitkazinov</span></div>
+      </a>
+      <a class="soc tt rv" href="https://www.tiktok.com/@temirlanstandup" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></svg>
+        <div><b>TikTok</b><span>@temirlanstandup</span></div>
+      </a>
+      <a class="soc yt2 rv" href="https://youtube.com/@temirlanaitkazinov" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>
+        <div><b>YouTube</b><span>@temirlanaitkazinov</span></div>
+      </a>
+    </div>
+    <p class="big-mail rv">Отвечаю быстрее, чем ты успеешь обидеться на шутку. <b>Почти.</b></p>
+  </div>
+</section>
+
+<footer>
+  <span>© <span id="yr"></span> Темирлан Айтказинов. Все шутки защищены сарказмом.</span>
+  <a href="#top">Наверх ↑</a>
+</footer>
+
+<nav class="tabbar" aria-label="Разделы">
+  <a href="#about"><span>😂</span>Кто я</a>
+  <a href="#shows"><span>🎤</span>Сцена</a>
+  <a href="#humor"><span>🔥</span>Юмор</a>
+  <a href="#gallery"><span>📸</span>Фото</a>
+  <a href="#contact"><span>📩</span>Связь</a>
+</nav>
+
+<div class="lightbox" id="lb"><button class="x" aria-label="Закрыть">×</button><div id="lbc"></div></div>
+<div class="boring-msg" id="bmsg"><div>Не, не могу.<br>Это не моё 🙃</div></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+
+  // возраст считается сам от дня рождения (5 июня 2000)
+  const BIRTH = { y: 2000, m: 6, d: 5 };
+  const now = new Date();
+  const hadBirthday = now.getMonth() + 1 > BIRTH.m || (now.getMonth() + 1 === BIRTH.m && now.getDate() >= BIRTH.d);
+  const age = now.getFullYear() - BIRTH.y - (hadBirthday ? 0 : 1);
+  const word = n => { const a = n % 10, b = n % 100;
+    return (a === 1 && b !== 11) ? 'год' : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? 'года' : 'лет'; };
+  const isBirthday = now.getMonth() + 1 === BIRTH.m && now.getDate() === BIRTH.d;
+  $('#age').textContent = age;
+  $('#ageWord').textContent = word(age);
+
+  // бегущие строки
+  const fill = (el, words) => { const h = words.map(w => `<span>${w}</span>`).join(''); el.innerHTML = h + h; };
+  fill($('#m1'), [...(isBirthday ? ['🎂 Сегодня у меня днюха'] : []), 'Стендап','Пошлый, но женат',`${age} ${word(age)}`,'Сарказм без выходных','Скука запрещена','Astana Comedy Fest']);
+  fill($('#m2'), ['Мой мир','Мои правила','Мой юмор','Не воспринимай серьёзно','Особенно меня']);
+  fill($('#m3'), ['Улики','Доказательства','Фото с концертов','Да, это всё я','Без фотошопа (почти)']);
+  $('#yr').textContent = new Date().getFullYear();
+
+  // меню на телефоне
+  const menu = $('#menu');
+  $('#burger').onclick = () => menu.classList.toggle('open');
+  menu.querySelectorAll('a').forEach(a => a.onclick = () => menu.classList.remove('open'));
+
+  // курсор
+  const c = $('#cursor');
+  if (matchMedia('(hover:hover)').matches) {
+    addEventListener('mousemove', e => { c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a,button,.g,.yt,input').forEach(el => {
+      el.addEventListener('mouseenter', () => c.classList.add('big'));
+      el.addEventListener('mouseleave', () => c.classList.remove('big'));
+    });
+  }
+
+  // звук у вертикального видео
+  const reel = $('#reel'), snd = $('#sound');
+  snd.onclick = () => {
+    reel.muted = !reel.muted;
+    if (!reel.muted) { reel.currentTime = 0; reel.play(); }
+    snd.textContent = reel.muted ? '🔇 Включить звук' : '🔊 Выключить звук';
+  };
+
+  // YouTube: грузим плеер только по клику (сайт быстрее)
+  const yt = $('#yt');
+  const loadYT = () => {
+    if (yt.querySelector('iframe')) return;
+    yt.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${yt.dataset.id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Выступление"></iframe>`;
+  };
+  yt.onclick = loadYT;
+  yt.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadYT(); } };
+
+  // шкала пошлости
+  const levels = [
+    [0,  '😇 Версия для мамы. Скучно, но безопасно.'],
+    [15, '🙂 Лёгкий флирт с приличием.'],
+    [35, '😏 Уже можно звать друзей, но не начальника.'],
+    [55, '🔥 Тут начинается настоящий концерт.'],
+    [75, '🫣 Жена смотрит на тебя с подозрением.'],
+    [92, '💀 Ну ты сам попросил. Приходи на концерт, тут не покажем.']
+  ];
+  const m = $('#meter'), mv = $('#mval'), mt = $('#mtxt');
+  const upd = () => {
+    const v = +m.value; mv.textContent = v + '%';
+    mv.style.color = v > 75 ? 'var(--red)' : v > 40 ? 'var(--violet)' : 'var(--acid)';
+    mt.textContent = levels.filter(l => v >= l[0]).pop()[1];
+  };
+  m.oninput = upd; upd();
+
+  // кнопка «не нажимай»
+  const msgs = [
+    'Ну и зачем? 🙄',
+    'Я же просил. Ладно, ещё раз и всё.',
+    'Ты из тех, кто трогает табличку «окрашено», да?',
+    'Поздравляю, ты ничего не выиграл. 🏆',
+    'Жена бы так не сделала. Хотя…',
+    'Ок, ты победил. Подпишись на Instagram в награду. 👇',
+    'Всё, кнопка устала. Иди смотри видео.'
+  ];
+  let n = 0; const dont = $('#dont'), dout = $('#dout');
+  dont.onclick = () => {
+    dout.textContent = msgs[Math.min(n, msgs.length - 1)];
+    n++;
+    dont.style.transform = `rotate(${(Math.random() * 8 - 4).toFixed(1)}deg)`;
+    if (n === msgs.length) dont.textContent = 'ХВАТИТ 😤';
+  };
+
+  // «серьёзный режим»
+  const bmsg = $('#bmsg');
+  $('#boring').onclick = () => {
+    document.body.classList.add('boring');
+    setTimeout(() => { bmsg.classList.add('show'); }, 1600);
+    setTimeout(() => { document.body.classList.remove('boring'); }, 2400);
+    setTimeout(() => { bmsg.classList.remove('show'); }, 3600);
+  };
+
+  // галерея / лайтбокс
+  const lb = $('#lb'), lbc = $('#lbc');
+  document.querySelectorAll('.g').forEach(g => g.onclick = () => {
+    const v = g.dataset.video;
+    lbc.innerHTML = v ? `<video src="${v}" controls autoplay playsinline></video>`
+                      : `<img src="${g.querySelector('img').src}" alt="${g.querySelector('img').alt}">`;
+    lb.classList.add('open');
+    if (v) reel.pause();
+  });
+  const closeLb = () => { lb.classList.remove('open'); lbc.innerHTML = ''; reel.play().catch(()=>{}); };
+  lb.onclick = e => { if (e.target === lb || e.target.classList.contains('x')) closeLb(); };
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // нижняя панель: подсвечиваем текущий раздел
+  const tabs = [...document.querySelectorAll('.tabbar a')];
+  const so = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) tabs.forEach(t => t.classList.toggle('on', t.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  ['about','shows','humor','gallery','contact'].forEach(id => so.observe(document.getElementById(id)));
+  const top = new IntersectionObserver(es => { if (es[0].isIntersecting) tabs.forEach(t => t.classList.remove('on')); }, { threshold: .5 });
+  top.observe($('#top'));
+
+  // точки под галереей
+  const gal = $('.gallery'), dots = [...document.querySelectorAll('#dots i')];
+  gal.addEventListener('scroll', () => {
+    const items = [...gal.children], mid = gal.scrollLeft + gal.clientWidth / 2;
+    let best = 0; items.forEach((it, i) => { if (Math.abs(it.offsetLeft + it.offsetWidth / 2 - mid) < Math.abs(items[best].offsetLeft + items[best].offsetWidth / 2 - mid)) best = i; });
+    dots.forEach((d, i) => d.classList.toggle('on', i === best));
+  }, { passive: true });
+
+  // вибро-отклик кнопки на телефонах (Android)
+  dont.addEventListener('click', () => navigator.vibrate && navigator.vibrate(n % 3 ? 30 : [40, 60, 40]));
+
+  // появление при скролле
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
